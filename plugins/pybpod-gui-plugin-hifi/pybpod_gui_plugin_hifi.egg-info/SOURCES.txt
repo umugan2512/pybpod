@@ -1,0 +1,13 @@
+README.md
+setup.py
+pybpod_gui_plugin_hifi.egg-info/PKG-INFO
+pybpod_gui_plugin_hifi.egg-info/SOURCES.txt
+pybpod_gui_plugin_hifi.egg-info/dependency_links.txt
+pybpod_gui_plugin_hifi.egg-info/requires.txt
+pybpod_gui_plugin_hifi.egg-info/top_level.txt
+pybpod_hifi_module/__init__.py
+pybpod_hifi_module/module.py
+pybpod_hifi_module/module_api.py
+pybpod_hifi_module/settings.py
+pybpod_hifi_module/utils/__init__.py
+pybpod_hifi_module/utils/generate_sound.py

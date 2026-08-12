@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: pybpod-gui-plugin-hifi
+Version: 0.1.0
+Summary: PyBpod Bpod HiFi module driver
+Home-page: UNKNOWN
+License: MIT
+Platform: UNKNOWN
+
+Python driver for the Sanworks Bpod HiFi Module: loads and triggers audio
+    waveforms (mono or true independent-channel stereo) over the module's own USB connection, and
+    provides the state-machine-side trigger integration for use from PyBpod protocols.
+
