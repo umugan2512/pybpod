@@ -48,4 +48,5 @@
 	url = https://github.com/pybpod/pybpod-gui-plugin-soundcard.git
 [submodule "plugins - pybpod-gui-plugin-rotaryencoder"]
 	path = plugins/pybpod-gui-plugin-rotaryencoder
-	url = https://github.com/pybpod/pybpod-gui-plugin-rotaryencoder.git
+	url = https://github.com/umugan2512/pybpod-gui-plugin-rotaryencoder.git
+	branch = save-local-changes
