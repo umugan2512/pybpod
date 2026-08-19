@@ -80,7 +80,14 @@ user` on startup is expected/benign, not a failure.
 
 `utils/install.py` does two things:
 1. `pip install -e` every folder listed in `SUBMODULES_FOLDERS` (all of `base/`, `libraries/`,
-   `plugins/`) so the whole stack is editable in-place.
+   `plugins/`) so the whole stack is editable in-place. `base/pybpod` itself — the package whose
+   `setup.py` defines the `start-pybpod` console-script entry point — is listed **last**, after
+   every package it depends on (it pins exact versions of `pyforms-gui`, `pybpod-api`/
+   `pybpod-gui-api`/`pybpod-gui-plugin`, and every `plugins/` package): installing it any earlier
+   would make `pip` try to satisfy those pins from PyPI instead of the local editable installs that
+   don't exist yet at that point in the loop. Confirmed as a real gap during a from-scratch machine
+   setup: `base/pybpod` was missing from `SUBMODULES_FOLDERS` for a time, silently leaving
+   `start-pybpod` unregistered even though every other submodule installed cleanly.
 2. Writes `user_settings.py` (if it doesn't already exist) with `GENERIC_EDITOR_PLUGINS_LIST` set to
    the default plugin set (`pybpodgui_plugin`, `pybpodgui_plugin_timeline`,
    `pybpodgui_plugin_session_history`). Delete/edit `user_settings.py` to change which plugins load.

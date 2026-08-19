@@ -26,6 +26,11 @@ SUBMODULES_FOLDERS = [
     "plugins/pybpod-gui-plugin-waveplayer",
     "plugins/pybpod-gui-plugin-rotaryencoder",
     "plugins/pybpod-gui-plugin-soundcard",
+    # TOP-LEVEL PACKAGE -- must be installed LAST: its own setup.py pins exact versions of every
+    # package above (pyforms-gui, pybpod-api/gui-api/gui-plugin, every plugin), so pip only picks up
+    # the local editable installs instead of trying to pull pinned versions from PyPI if this runs
+    # after all of them are already in place.
+    "base/pybpod",
 ]
 
 DEFAULT_PLUGINS = [
