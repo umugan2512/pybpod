@@ -18,6 +18,8 @@ from serial.tools import list_ports
 from pybpodapi.com.arcom import ArCOM
 from pybpod_hifi_module.settings import HIFI_VALID_SAMPLING_RATES, HIFI_DEFAULT_SAMPLING_RATE
 
+_LOAD_CHUNK_BYTES = 64 * 1024   # see load()
+
 
 class HiFiModule(object):
     """
@@ -139,7 +141,12 @@ class HiFiModule(object):
         header = bytes([ord('L'), wave_index, is_stereo, loop_mode]) + struct.pack(
             '<II', int(loop_duration * self.sampling_rate), n_samples)
 
-        self.arcom.write_array(header + pcm.tobytes())
+        # In chunks: on Windows one multi-MB WriteFile can complete short, which pyserial raises
+        # as 'Write timeout' (a 5.75s 192kHz stereo wave, 4.4MB, failed this way every time; in
+        # 64KB chunks it loads in 0.37s).
+        payload = header + pcm.tobytes()
+        for start in range(0, len(payload), _LOAD_CHUNK_BYTES):
+            self.arcom.write_array(payload[start:start + _LOAD_CHUNK_BYTES])
         ack = self.arcom.read_uint8()
         if ack != 1:
             raise RuntimeError(
